@@ -1,0 +1,36 @@
+{
+  "name": "private-service",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/src/app.js",
+  "scripts": {
+    "dev": "nodemon",
+    "build": "rimraf dist && tsc -p .",
+    "start": "node src/app.js"
+  },
+  "keywords": [],
+  "author": "autsada thummatipagul",
+  "license": "ISC",
+  "dependencies": {
+    "@google-cloud/kms": "^3.7.0",
+    "axios": "^1.4.0",
+    "cors": "^2.8.5",
+    "crypto-js": "^4.1.1",
+    "dotenv": "^16.3.1",
+    "ethers": "^6.6.4",
+    "express": "^4.18.2",
+    "fast-crc32c": "^2.0.0",
+    "firebase-admin": "^11.10.1"
+  },
+  "devDependencies": {
+    "@tsconfig/node14": "^14.1.0",
+    "@types/cors": "^2.8.13",
+    "@types/crypto-js": "^4.1.1",
+    "@types/express": "^4.17.17",
+    "@types/node": "^20.4.4",
+    "nodemon": "^3.0.1",
+    "rimraf": "^5.0.1",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.1.6"
+  }
+}
