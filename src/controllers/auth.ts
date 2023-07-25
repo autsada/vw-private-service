@@ -9,9 +9,9 @@ export async function checkAuth(
   next: NextFunction
 ) {
   try {
-    const { uid } = req
+    const { uid, isAdmin } = req
 
-    res.status(200).json({ uid })
+    res.status(200).json({ uid, isAdmin })
   } catch (error) {
     next(error)
   }

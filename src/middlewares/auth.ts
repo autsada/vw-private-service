@@ -2,6 +2,8 @@ import { Request, Response, NextFunction } from "express"
 
 import { verifyIdToken } from "../firebase/helpers"
 
+const { ADMIN_EMAIL } = process.env
+
 export async function auth(req: Request, res: Response, next: NextFunction) {
   try {
     // Get Firebase auth id token.
@@ -11,6 +13,7 @@ export async function auth(req: Request, res: Response, next: NextFunction) {
     } else {
       const user = await verifyIdToken(idToken)
       req.uid = user?.uid
+      req.isAdmin = user?.email?.toLowerCase() === ADMIN_EMAIL?.toLowerCase()
       next()
     }
   } catch (error) {
