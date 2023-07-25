@@ -30,7 +30,7 @@ export async function calculateTipsAmount(
 }
 
 /**
- * A route to send tips to station owner.
+ * A route to send tips to receiver.
  */
 export async function transferTips(
   req: Request,
@@ -52,7 +52,7 @@ export async function transferTips(
     // Decrypt the key
     const key = await decrypt(encryptedKey)
 
-    // Mint a DiiR NFT
+    // Send tips to receiver
     const result = await sendTips({
       key,
       data: {

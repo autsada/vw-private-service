@@ -68,8 +68,8 @@ export async function calculateTips(qty: number) {
 }
 
 /**
- * The function to send tips to station owner.
- * @param input - see MintStationInput
+ * The function to send tips.
+ * @param input
  */
 export async function sendTips(input: SendTipsInput) {
   const {
