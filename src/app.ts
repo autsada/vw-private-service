@@ -6,6 +6,7 @@ import cors from "cors"
 import http from "http"
 
 import "./firebase/config"
+import "./listensers"
 import * as router from "./routes"
 import { errorHandler } from "./middlewares/error"
 import { createIdTokenfromCustomToken } from "./firebase/helpers"

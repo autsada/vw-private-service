@@ -114,6 +114,13 @@ export function updateDocById<T extends Record<string, any>>({
     )
 }
 
+export function deleteDoc<T extends Record<string, any>>({
+  collectionName,
+  docId,
+}: Pick<Args<T>, "collectionName" | "docId">) {
+  return db.collection(collectionName).doc(docId).delete()
+}
+
 // ===== "wallets" collection ===== //
 /**
  * Get a doc from "wallets" collection.
