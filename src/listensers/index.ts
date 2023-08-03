@@ -1,14 +1,17 @@
 import { subscribeToMessage } from "./pubsub"
-import { updatesCollection } from "../firebase/config"
+import { notificationsCollection, updatesCollection } from "../firebase/config"
 import { updateDocById, deleteDoc } from "../firebase/helpers"
 
-const { PUBLISH_PROCESSING_SUBSCRIPTION, PUBLISH_DELETION_SUBSCRIPTION } =
-  process.env
+const {
+  PUBLISH_PROCESSING_SUBSCRIPTION,
+  PUBLISH_DELETION_SUBSCRIPTION,
+  NEW_NOTIFICATION_SUBSCRIPTION,
+} = process.env
 
 function listenToPublishProcessing() {
   const onPublishProcessed = async (message: any) => {
     const docId = `${message?.data}`
-    // Update the doc in Firestore
+    // Update the doc in `updates` collection in Firestore
     await updateDocById({
       collectionName: updatesCollection,
       docId,
@@ -32,9 +35,24 @@ function listenToPublishDeletion() {
   subscribeToMessage(PUBLISH_DELETION_SUBSCRIPTION!, onPublishDeleted)
 }
 
+function listenToNewNotification() {
+  const onNewNotification = async (message: any) => {
+    const docId = `${message?.data}`
+    // Update the doc in `notifications` collection in Firestore
+    await updateDocById({
+      collectionName: notificationsCollection,
+      docId,
+      data: {},
+    })
+  }
+
+  subscribeToMessage(NEW_NOTIFICATION_SUBSCRIPTION!, onNewNotification)
+}
+
 function main() {
   listenToPublishProcessing()
   listenToPublishDeletion()
+  listenToNewNotification()
 }
 
 main()
