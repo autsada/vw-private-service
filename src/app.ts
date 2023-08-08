@@ -6,7 +6,6 @@ import cors from "cors"
 import http from "http"
 
 import "./firebase/config"
-import "./listensers"
 import * as router from "./routes"
 import { errorHandler } from "./middlewares/error"
 import { createIdTokenfromCustomToken } from "./firebase/helpers"
@@ -37,6 +36,7 @@ app.get("/id-token", async (req, res, next) => {
 
 app.use("/wallet", router.walletRouter)
 app.use("/auth", router.authRouter)
+app.use("/pubsub", router.pubsubRouter)
 app.use(errorHandler)
 
 // Create the HTTP server
