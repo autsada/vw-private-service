@@ -11,6 +11,7 @@ import { errorHandler } from "./middlewares/error"
 import { createIdTokenfromCustomToken } from "./firebase/helpers"
 
 const { PORT } = process.env
+const port = PORT || 8000
 
 const app = express()
 app.use(express.json()) // for parsing application/json
@@ -42,6 +43,6 @@ app.use(errorHandler)
 // Create the HTTP server
 const httpServer = http.createServer(app)
 
-httpServer.listen({ port: PORT || 8000 }, () => {
-  console.log(`Server ready at port: ${PORT}`)
+httpServer.listen({ port }, () => {
+  console.log(`Server ready at port: ${port}`)
 })
