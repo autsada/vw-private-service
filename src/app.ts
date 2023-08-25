@@ -11,7 +11,7 @@ import { errorHandler } from "./middlewares/error"
 import { createIdTokenfromCustomToken } from "./firebase/helpers"
 
 const { PORT } = process.env
-const port = PORT || 8000
+const port = Number(PORT || 8000)
 
 const app = express()
 app.use(express.json()) // for parsing application/json
