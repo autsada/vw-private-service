@@ -6,4 +6,3 @@ node_modules
 gcp.txt
 .DS_Store
 serviceAccount.json
-*test*
