@@ -8,6 +8,8 @@ import {
 import { getAuth } from "firebase-admin/auth"
 import { getFirestore } from "firebase-admin/firestore"
 
+import type { Environment } from "../types"
+
 const {
   FIREBASE_PROJECT_ID,
   FIREBASE_PRIVATE_KEY,
@@ -15,11 +17,13 @@ const {
   NODE_ENV,
 } = process.env
 
+const env = NODE_ENV as Environment
+
 function initializeFirebaseAdmin() {
   return !getApps().length
     ? initializeApp({
         credential:
-          NODE_ENV === "production" || NODE_ENV === "staging"
+          env === "production" || env === "test"
             ? applicationDefault()
             : admin.credential.cert({
                 projectId: FIREBASE_PROJECT_ID,

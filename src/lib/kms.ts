@@ -1,6 +1,7 @@
 import { KeyManagementServiceClient } from "@google-cloud/kms"
 
 import { decryptString } from "./utils"
+import type { Environment } from "../types"
 
 const {
   KMS_PROJECT_ID,
@@ -11,6 +12,7 @@ const {
 } = process.env
 
 const client = new KeyManagementServiceClient()
+const env = NODE_ENV as Environment
 
 export async function createKeyRing() {
   const locationName = client.locationPath(KMS_PROJECT_ID!, KMS_LOCATION_ID!)
@@ -65,7 +67,7 @@ export async function encrypt(text: string) {
   const plaintextBuffer = Buffer.from(text)
 
   // Use fast-crc32c only in testing and production environments as it causes error on Macbook M1 in the dev environment.
-  if (NODE_ENV === "development") {
+  if (env === "development") {
     const [encryptResponse] = await client.encrypt({
       name: keyName,
       plaintext: plaintextBuffer,
@@ -124,7 +126,7 @@ export async function decrypt(key: string) {
   const ciphertext = Buffer.from(key, "base64")
 
   // Use fast-crc32c only in staging and production as it causes error on Macbook M1 in development.
-  if (NODE_ENV === "development") {
+  if (env === "development") {
     const [decryptResponse] = await client.decrypt({
       name: keyName,
       ciphertext: ciphertext,

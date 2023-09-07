@@ -12,7 +12,7 @@ const {
   ETHERSCAN_API_KEY,
   INFURA_API_KEY,
 } = process.env
-const env = (NODE_ENV || "development") as Environment
+const env = NODE_ENV as Environment
 
 export function getProvider() {
   return env === "development"
