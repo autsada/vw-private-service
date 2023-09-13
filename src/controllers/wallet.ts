@@ -50,7 +50,9 @@ export async function createWallet(
   next: NextFunction
 ) {
   try {
+    console.log("create called -->", env)
     const { uid } = req
+    console.log("uid -->", uid)
     if (!uid) throw new Error(authError)
 
     let walletAddress: string = ""
@@ -101,6 +103,7 @@ export async function createWallet(
 
     res.status(200).json({ address: walletAddress, uid })
   } catch (error) {
+    console.log("error -->", error)
     next(error)
   }
 }
