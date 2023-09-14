@@ -33,7 +33,7 @@ export async function getWalletAddress(
       walletAddress = walletDoc.address
     }
 
-    res.status(200).json({ address: walletAddress || null })
+    res.status(200).json({ address: walletAddress || null, uid })
   } catch (error) {
     next(error)
   }
