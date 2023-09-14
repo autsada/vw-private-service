@@ -10,11 +10,8 @@ export async function checkAuth(
 ) {
   try {
     const { uid, isAdmin } = req
-    console.log("verify uid -->", uid)
-
     res.status(200).json({ uid, isAdmin })
   } catch (error) {
-    console.log("verify error -->", error)
     next(error)
   }
 }

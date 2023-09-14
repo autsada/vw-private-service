@@ -1,5 +1,4 @@
 import type { Request, Response, NextFunction } from "express"
-import axios from "axios"
 
 import { generateWallet, generateWalletDev, getBalance } from "../lib/wallet"
 import { walletsCollection } from "../firebase/config"
@@ -7,7 +6,7 @@ import { createDocWithId, getDocById } from "../firebase/helpers"
 import { authError } from "../lib/constants"
 import type { Wallet, Environment } from "../types"
 
-const { NODE_ENV, ALCHEMY_WEBHOOK_ID, ALCHEMY_WEBHOOK_AUTH_TOKEN } = process.env
+const { NODE_ENV } = process.env
 const env = NODE_ENV as Environment
 
 /**
@@ -50,9 +49,7 @@ export async function createWallet(
   next: NextFunction
 ) {
   try {
-    console.log("create called -->", env)
     const { uid } = req
-    console.log("uid -->", uid)
     if (!uid) throw new Error(authError)
 
     let walletAddress: string = ""
@@ -82,28 +79,10 @@ export async function createWallet(
         },
       })
       walletAddress = wallet.address.toLowerCase()
-
-      // Add the wallet address to Alchemy notify
-      if (walletAddress && env !== "development") {
-        await axios({
-          url: "https://dashboard.alchemyapi.io/api/update-webhook-addresses",
-          method: "PATCH",
-          headers: {
-            "Content-Type": "application/json",
-            "x-alchemy-token": ALCHEMY_WEBHOOK_AUTH_TOKEN || "",
-          },
-          data: {
-            webhook_id: ALCHEMY_WEBHOOK_ID,
-            addresses_to_add: [walletAddress],
-            addresses_to_remove: [],
-          },
-        })
-      }
     }
 
     res.status(200).json({ address: walletAddress, uid })
   } catch (error) {
-    console.log("error -->", error)
     next(error)
   }
 }
