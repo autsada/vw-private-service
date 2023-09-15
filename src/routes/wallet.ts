@@ -8,6 +8,7 @@ import {
   createWallet,
   getWalletAddress,
   getWalletBalance,
+  addAddressToAlchemyNotify,
 } from "../controllers/wallet"
 import { calculateTipsAmount, transferTips } from "../controllers/tips"
 import { auth } from "../middlewares/auth"
@@ -19,3 +20,4 @@ walletRouter.get("/address", auth, getWalletAddress)
 walletRouter.post("/create", auth, createWallet)
 walletRouter.post("/tips/calculate", calculateTipsAmount) // No auth required
 walletRouter.post("/tips/send", auth, transferTips) // Required auth
+walletRouter.post("/notify/add", auth, addAddressToAlchemyNotify) // Required auth

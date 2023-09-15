@@ -4,6 +4,7 @@ import { generateWallet, generateWalletDev, getBalance } from "../lib/wallet"
 import { walletsCollection } from "../firebase/config"
 import { createDocWithId, getDocById } from "../firebase/helpers"
 import { authError } from "../lib/constants"
+import { addAddress } from "../lib/alchemy"
 import type { Wallet, Environment } from "../types"
 
 const { NODE_ENV } = process.env
@@ -101,6 +102,30 @@ export async function getWalletBalance(
 
     res.status(200).json({ balance })
   } catch (error) {
+    next(error)
+  }
+}
+
+/**
+ * @dev A function to add an address to Alchemy Notify
+ */
+export async function addAddressToAlchemyNotify(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  try {
+    const { uid } = req
+    if (!uid) throw new Error(authError)
+
+    const { address } = req.body
+
+    const result = await addAddress(address)
+    console.log("result -->", result)
+
+    res.status(200).json({ status: "Ok" })
+  } catch (error) {
+    console.log("error -->", error)
     next(error)
   }
 }
