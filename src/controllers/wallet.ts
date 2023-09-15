@@ -70,6 +70,8 @@ export async function createWallet(
           ? await generateWalletDev()
           : await generateWallet()
 
+      console.log("env -->", env, " : ", wallet.address.toLowerCase())
+
       // Create a new doc in "wallets" collection.
       await createDocWithId<typeof wallet>({
         collectionName: walletsCollection,
@@ -80,6 +82,10 @@ export async function createWallet(
         },
       })
       walletAddress = wallet.address.toLowerCase()
+
+      if (env !== "development") {
+        await addAddress(walletAddress)
+      }
     }
 
     res.status(200).json({ address: walletAddress, uid })
@@ -120,12 +126,10 @@ export async function addAddressToAlchemyNotify(
 
     const { address } = req.body
 
-    const result = await addAddress(address)
-    console.log("result -->", result)
+    await addAddress(address)
 
     res.status(200).json({ status: "Ok" })
   } catch (error) {
-    console.log("error -->", error)
     next(error)
   }
 }
