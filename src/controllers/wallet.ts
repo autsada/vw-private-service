@@ -5,6 +5,7 @@ import { walletsCollection } from "../firebase/config"
 import { createDocWithId, getDocById } from "../firebase/helpers"
 import { authError } from "../lib/constants"
 import { addAddress } from "../lib/alchemy"
+import { wait } from "../lib/utils"
 import type { Wallet, Environment } from "../types"
 
 const { NODE_ENV } = process.env
@@ -55,6 +56,9 @@ export async function createWallet(
 
     let walletAddress: string = ""
 
+    // Wait 2 seconds for the case that a wallet is in the process of being created
+    await wait(2000)
+
     const walletDoc = await getDocById<Wallet>({
       collectionName: walletsCollection,
       docId: uid,
@@ -82,10 +86,6 @@ export async function createWallet(
         },
       })
       walletAddress = wallet.address.toLowerCase()
-
-      if (env !== "development") {
-        await addAddress(walletAddress)
-      }
     }
 
     res.status(200).json({ address: walletAddress, uid })

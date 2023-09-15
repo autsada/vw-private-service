@@ -19,3 +19,11 @@ export function decryptString(text: string) {
 export function throwError(code: number, message: string) {
   throw { status: code, message }
 }
+
+/**
+ * A helper function to wait
+ * @param time milliseconds
+ */
+export function wait(time: number) {
+  return new Promise((resolve) => setTimeout(resolve, time))
+}
