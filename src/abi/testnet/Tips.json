@@ -1,1 +1,284 @@
-{"address":"0x3D9a464f18554C4F0D053869407404894aFF3c7B","abi":[{"type":"constructor","stateMutability":"undefined","payable":false,"inputs":[]},{"type":"event","anonymous":false,"name":"AdminChanged","inputs":[{"type":"address","name":"previousAdmin","indexed":false},{"type":"address","name":"newAdmin","indexed":false}]},{"type":"event","anonymous":false,"name":"BeaconUpgraded","inputs":[{"type":"address","name":"beacon","indexed":true}]},{"type":"event","anonymous":false,"name":"Initialized","inputs":[{"type":"uint8","name":"version","indexed":false}]},{"type":"event","anonymous":false,"name":"RoleAdminChanged","inputs":[{"type":"bytes32","name":"role","indexed":true},{"type":"bytes32","name":"previousAdminRole","indexed":true},{"type":"bytes32","name":"newAdminRole","indexed":true}]},{"type":"event","anonymous":false,"name":"RoleGranted","inputs":[{"type":"bytes32","name":"role","indexed":true},{"type":"address","name":"account","indexed":true},{"type":"address","name":"sender","indexed":true}]},{"type":"event","anonymous":false,"name":"RoleRevoked","inputs":[{"type":"bytes32","name":"role","indexed":true},{"type":"address","name":"account","indexed":true},{"type":"address","name":"sender","indexed":true}]},{"type":"event","anonymous":false,"name":"TipsTransferred","inputs":[{"type":"address","name":"from","indexed":false},{"type":"address","name":"to","indexed":false},{"type":"uint256","name":"amount","indexed":false},{"type":"uint256","name":"fee","indexed":false},{"type":"uint256","name":"timestamp","indexed":false}]},{"type":"event","anonymous":false,"name":"Upgraded","inputs":[{"type":"address","name":"implementation","indexed":true}]},{"type":"event","anonymous":false,"name":"Withdrawal","inputs":[{"type":"address","name":"to","indexed":false},{"type":"uint256","name":"amount","indexed":false},{"type":"uint256","name":"timestamp","indexed":false}]},{"type":"function","name":"ADMIN_ROLE","constant":true,"stateMutability":"view","payable":false,"inputs":[],"outputs":[{"type":"bytes32"}]},{"type":"function","name":"DEFAULT_ADMIN_ROLE","constant":true,"stateMutability":"view","payable":false,"inputs":[],"outputs":[{"type":"bytes32"}]},{"type":"function","name":"UPGRADER_ROLE","constant":true,"stateMutability":"view","payable":false,"inputs":[],"outputs":[{"type":"bytes32"}]},{"type":"function","name":"calculateTips","constant":true,"stateMutability":"view","payable":false,"inputs":[{"type":"uint256","name":"qty"}],"outputs":[{"type":"uint256"}]},{"type":"function","name":"feeRate","constant":true,"stateMutability":"view","payable":false,"inputs":[],"outputs":[{"type":"uint256"}]},{"type":"function","name":"getBalance","constant":true,"stateMutability":"view","payable":false,"inputs":[],"outputs":[{"type":"uint256"}]},{"type":"function","name":"getFeeRate","constant":true,"stateMutability":"view","payable":false,"inputs":[],"outputs":[{"type":"uint256"}]},{"type":"function","name":"getPriceFeedAddress","constant":true,"stateMutability":"view","payable":false,"inputs":[],"outputs":[{"type":"address"}]},{"type":"function","name":"getRoleAdmin","constant":true,"stateMutability":"view","payable":false,"inputs":[{"type":"bytes32","name":"role"}],"outputs":[{"type":"bytes32"}]},{"type":"function","name":"grantRole","constant":false,"payable":false,"inputs":[{"type":"bytes32","name":"role"},{"type":"address","name":"account"}],"outputs":[]},{"type":"function","name":"hasRole","constant":true,"stateMutability":"view","payable":false,"inputs":[{"type":"bytes32","name":"role"},{"type":"address","name":"account"}],"outputs":[{"type":"bool"}]},{"type":"function","name":"initialize","constant":false,"payable":false,"inputs":[{"type":"address","name":"priceFeedAddress"}],"outputs":[]},{"type":"function","name":"proxiableUUID","constant":true,"stateMutability":"view","payable":false,"inputs":[],"outputs":[{"type":"bytes32"}]},{"type":"function","name":"renounceRole","constant":false,"payable":false,"inputs":[{"type":"bytes32","name":"role"},{"type":"address","name":"account"}],"outputs":[]},{"type":"function","name":"revokeRole","constant":false,"payable":false,"inputs":[{"type":"bytes32","name":"role"},{"type":"address","name":"account"}],"outputs":[]},{"type":"function","name":"supportsInterface","constant":true,"stateMutability":"view","payable":false,"inputs":[{"type":"bytes4","name":"interfaceId"}],"outputs":[{"type":"bool"}]},{"type":"function","name":"tip","constant":false,"stateMutability":"payable","payable":true,"inputs":[{"type":"address","name":"to"},{"type":"uint256","name":"qty"}],"outputs":[]},{"type":"function","name":"upgradeTo","constant":false,"payable":false,"inputs":[{"type":"address","name":"newImplementation"}],"outputs":[]},{"type":"function","name":"upgradeToAndCall","constant":false,"stateMutability":"payable","payable":true,"inputs":[{"type":"address","name":"newImplementation"},{"type":"bytes","name":"data"}],"outputs":[]},{"type":"function","name":"withdraw","constant":false,"payable":false,"inputs":[],"outputs":[]}]}
+{
+  "address": "0x3DF4F3473a9126253dae8b689765c1Ab7298F63f",
+  "abi": [
+    {
+      "type": "constructor",
+      "stateMutability": "undefined",
+      "payable": false,
+      "inputs": []
+    },
+    {
+      "type": "event",
+      "anonymous": false,
+      "name": "AdminChanged",
+      "inputs": [
+        { "type": "address", "name": "previousAdmin", "indexed": false },
+        { "type": "address", "name": "newAdmin", "indexed": false }
+      ]
+    },
+    {
+      "type": "event",
+      "anonymous": false,
+      "name": "BeaconUpgraded",
+      "inputs": [{ "type": "address", "name": "beacon", "indexed": true }]
+    },
+    {
+      "type": "event",
+      "anonymous": false,
+      "name": "Initialized",
+      "inputs": [{ "type": "uint8", "name": "version", "indexed": false }]
+    },
+    {
+      "type": "event",
+      "anonymous": false,
+      "name": "RoleAdminChanged",
+      "inputs": [
+        { "type": "bytes32", "name": "role", "indexed": true },
+        { "type": "bytes32", "name": "previousAdminRole", "indexed": true },
+        { "type": "bytes32", "name": "newAdminRole", "indexed": true }
+      ]
+    },
+    {
+      "type": "event",
+      "anonymous": false,
+      "name": "RoleGranted",
+      "inputs": [
+        { "type": "bytes32", "name": "role", "indexed": true },
+        { "type": "address", "name": "account", "indexed": true },
+        { "type": "address", "name": "sender", "indexed": true }
+      ]
+    },
+    {
+      "type": "event",
+      "anonymous": false,
+      "name": "RoleRevoked",
+      "inputs": [
+        { "type": "bytes32", "name": "role", "indexed": true },
+        { "type": "address", "name": "account", "indexed": true },
+        { "type": "address", "name": "sender", "indexed": true }
+      ]
+    },
+    {
+      "type": "event",
+      "anonymous": false,
+      "name": "TipsTransferred",
+      "inputs": [
+        { "type": "address", "name": "from", "indexed": false },
+        { "type": "address", "name": "to", "indexed": false },
+        { "type": "uint256", "name": "amount", "indexed": false },
+        { "type": "uint256", "name": "fee", "indexed": false },
+        { "type": "uint256", "name": "timestamp", "indexed": false }
+      ]
+    },
+    {
+      "type": "event",
+      "anonymous": false,
+      "name": "Upgraded",
+      "inputs": [
+        { "type": "address", "name": "implementation", "indexed": true }
+      ]
+    },
+    {
+      "type": "event",
+      "anonymous": false,
+      "name": "Withdrawal",
+      "inputs": [
+        { "type": "address", "name": "to", "indexed": false },
+        { "type": "uint256", "name": "amount", "indexed": false },
+        { "type": "uint256", "name": "timestamp", "indexed": false }
+      ]
+    },
+    {
+      "type": "function",
+      "name": "ADMIN_ROLE",
+      "constant": true,
+      "stateMutability": "view",
+      "payable": false,
+      "inputs": [],
+      "outputs": [{ "type": "bytes32" }]
+    },
+    {
+      "type": "function",
+      "name": "DEFAULT_ADMIN_ROLE",
+      "constant": true,
+      "stateMutability": "view",
+      "payable": false,
+      "inputs": [],
+      "outputs": [{ "type": "bytes32" }]
+    },
+    {
+      "type": "function",
+      "name": "UPGRADER_ROLE",
+      "constant": true,
+      "stateMutability": "view",
+      "payable": false,
+      "inputs": [],
+      "outputs": [{ "type": "bytes32" }]
+    },
+    {
+      "type": "function",
+      "name": "calculateTips",
+      "constant": true,
+      "stateMutability": "view",
+      "payable": false,
+      "inputs": [{ "type": "uint256", "name": "qty" }],
+      "outputs": [{ "type": "uint256" }]
+    },
+    {
+      "type": "function",
+      "name": "feeRate",
+      "constant": true,
+      "stateMutability": "view",
+      "payable": false,
+      "inputs": [],
+      "outputs": [{ "type": "uint256" }]
+    },
+    {
+      "type": "function",
+      "name": "getBalance",
+      "constant": true,
+      "stateMutability": "view",
+      "payable": false,
+      "inputs": [],
+      "outputs": [{ "type": "uint256" }]
+    },
+    {
+      "type": "function",
+      "name": "getFeeRate",
+      "constant": true,
+      "stateMutability": "view",
+      "payable": false,
+      "inputs": [],
+      "outputs": [{ "type": "uint256" }]
+    },
+    {
+      "type": "function",
+      "name": "getPriceFeedAddress",
+      "constant": true,
+      "stateMutability": "view",
+      "payable": false,
+      "inputs": [],
+      "outputs": [{ "type": "address" }]
+    },
+    {
+      "type": "function",
+      "name": "getRoleAdmin",
+      "constant": true,
+      "stateMutability": "view",
+      "payable": false,
+      "inputs": [{ "type": "bytes32", "name": "role" }],
+      "outputs": [{ "type": "bytes32" }]
+    },
+    {
+      "type": "function",
+      "name": "grantRole",
+      "constant": false,
+      "payable": false,
+      "inputs": [
+        { "type": "bytes32", "name": "role" },
+        { "type": "address", "name": "account" }
+      ],
+      "outputs": []
+    },
+    {
+      "type": "function",
+      "name": "hasRole",
+      "constant": true,
+      "stateMutability": "view",
+      "payable": false,
+      "inputs": [
+        { "type": "bytes32", "name": "role" },
+        { "type": "address", "name": "account" }
+      ],
+      "outputs": [{ "type": "bool" }]
+    },
+    {
+      "type": "function",
+      "name": "initialize",
+      "constant": false,
+      "payable": false,
+      "inputs": [{ "type": "address", "name": "priceFeedAddress" }],
+      "outputs": []
+    },
+    {
+      "type": "function",
+      "name": "proxiableUUID",
+      "constant": true,
+      "stateMutability": "view",
+      "payable": false,
+      "inputs": [],
+      "outputs": [{ "type": "bytes32" }]
+    },
+    {
+      "type": "function",
+      "name": "renounceRole",
+      "constant": false,
+      "payable": false,
+      "inputs": [
+        { "type": "bytes32", "name": "role" },
+        { "type": "address", "name": "account" }
+      ],
+      "outputs": []
+    },
+    {
+      "type": "function",
+      "name": "revokeRole",
+      "constant": false,
+      "payable": false,
+      "inputs": [
+        { "type": "bytes32", "name": "role" },
+        { "type": "address", "name": "account" }
+      ],
+      "outputs": []
+    },
+    {
+      "type": "function",
+      "name": "supportsInterface",
+      "constant": true,
+      "stateMutability": "view",
+      "payable": false,
+      "inputs": [{ "type": "bytes4", "name": "interfaceId" }],
+      "outputs": [{ "type": "bool" }]
+    },
+    {
+      "type": "function",
+      "name": "tip",
+      "constant": false,
+      "stateMutability": "payable",
+      "payable": true,
+      "inputs": [
+        { "type": "address", "name": "to" },
+        { "type": "uint256", "name": "qty" }
+      ],
+      "outputs": []
+    },
+    {
+      "type": "function",
+      "name": "upgradeTo",
+      "constant": false,
+      "payable": false,
+      "inputs": [{ "type": "address", "name": "newImplementation" }],
+      "outputs": []
+    },
+    {
+      "type": "function",
+      "name": "upgradeToAndCall",
+      "constant": false,
+      "stateMutability": "payable",
+      "payable": true,
+      "inputs": [
+        { "type": "address", "name": "newImplementation" },
+        { "type": "bytes", "name": "data" }
+      ],
+      "outputs": []
+    },
+    {
+      "type": "function",
+      "name": "withdraw",
+      "constant": false,
+      "payable": false,
+      "inputs": [],
+      "outputs": []
+    }
+  ]
+}
