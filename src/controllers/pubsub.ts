@@ -1,6 +1,10 @@
 import type { Request, Response, NextFunction } from "express"
 
-import { notificationsCollection, updatesCollection } from "../firebase/config"
+import {
+  notificationsCollection,
+  updatesCollection,
+  addressesCollection,
+} from "../firebase/config"
 import { deleteDoc, updateDocById } from "../firebase/helpers"
 
 export async function onPublishDeleted(
@@ -133,6 +137,61 @@ export async function onNotificationCreated(
 
     res.status(204).send()
   } catch (error) {
+    next(error)
+  }
+}
+
+export async function onAddressUpdated(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  try {
+    if (!req.body) {
+      const msg = "no Pub/Sub message received"
+      console.error(`error: ${msg}`)
+      res.status(400).send(`Bad Request: ${msg}`)
+      return
+    }
+    if (!req.body.message) {
+      const msg = "invalid Pub/Sub message format"
+      console.error(`error: ${msg}`)
+      res.status(400).send(`Bad Request: ${msg}`)
+      return
+    }
+
+    // Get the publish id from the message
+    const pubSubMessage = req.body.message
+    const message = pubSubMessage.data
+      ? Buffer.from(pubSubMessage.data, "base64").toString().trim()
+      : undefined
+
+    if (!message) {
+      const msg = "no data found"
+      console.error(`error: ${msg}`)
+      res.status(400).send(`Bad Request: ${msg}`)
+      return
+    }
+
+    console.log("message: -->", typeof message, " : ", message)
+    const addresses = JSON.parse(message)
+    console.log("addresses -->", addresses)
+
+    // Update the doc in `addresses` collection in Firestore
+    await updateDocById({
+      collectionName: addressesCollection,
+      docId: addresses?.fromAddress,
+      data: {},
+    })
+    await updateDocById({
+      collectionName: addressesCollection,
+      docId: addresses?.toAddress,
+      data: {},
+    })
+
+    res.status(204).send()
+  } catch (error) {
+    console.log("error -->", error)
     next(error)
   }
 }
