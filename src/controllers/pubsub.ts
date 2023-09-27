@@ -172,10 +172,7 @@ export async function onAddressUpdated(
       res.status(400).send(`Bad Request: ${msg}`)
       return
     }
-
-    console.log("message: -->", typeof message, " : ", message)
     const addresses = JSON.parse(message)
-    console.log("addresses -->", addresses)
 
     // Update the doc in `addresses` collection in Firestore
     await updateDocById({
@@ -191,7 +188,6 @@ export async function onAddressUpdated(
 
     res.status(204).send()
   } catch (error) {
-    console.log("error -->", error)
     next(error)
   }
 }
