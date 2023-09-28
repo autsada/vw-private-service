@@ -63,6 +63,7 @@ export async function transferTips(
 
     res.status(200).json({ result })
   } catch (error) {
+    console.log("error -->", error)
     next(error)
   }
 }

@@ -80,10 +80,12 @@ export async function sendTips(input: SendTipsInput) {
 
   // Calculate tips amount for the given quantity
   const tips = await calculateTips(qty)
+  console.log("tips -->", tips)
   const txn = await contract.tip(to.toLowerCase(), qty, {
     value: tips,
   })
   const txnRct = await txn.wait()
+  console.log("txnRct -->", txnRct)
   const txnHash = txnRct?.hash
 
   let event: ethers.EventLog | undefined = undefined
@@ -96,9 +98,15 @@ export async function sendTips(input: SendTipsInput) {
   if (!event) return null
 
   const args = event.args
+  console.log("args: -->", args)
   if (!args) return null
   const [from, receiver, amount, fee] =
     args as unknown as TipsTransferredEvent.OutputTuple
+
+  console.log("from -->", from)
+  console.log("receiver -->", receiver)
+  console.log("amount -->", amount)
+  console.log("fee -->", fee)
 
   return {
     from,
