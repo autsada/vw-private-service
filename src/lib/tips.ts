@@ -88,11 +88,13 @@ export async function sendTips(input: SendTipsInput) {
   console.log("txnRct -->", txnRct)
   const txnHash = txnRct?.hash
 
+  console.log("logs 1 -->", txnRct?.logs)
   let event: ethers.EventLog | undefined = undefined
   if (txnHash) {
-    const eventsLogs = await contract.queryTransaction(txnHash)
-
-    event = eventsLogs.find((e) => e.eventName === "TipsTransferred")
+    const eventLogs = await contract.queryTransaction(txnHash)
+    console.log("logs 2 -->", eventLogs)
+    event = eventLogs.find((e) => e.eventName === "TipsTransferred")
+    console.log("event -->", event)
   }
 
   if (!event) return null
