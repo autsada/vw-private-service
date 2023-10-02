@@ -16,12 +16,18 @@ export type CheckRoleParams = {
 /**
  * Input data required to send tips to a profile.
  * @param key {string} - wallet's key
+ * @param data.senderId {string} - a sender uid
+ * @param data.receiverId {string} - a receiver uid
+ * @param data.publishId {string} - a publish id
  * @param data.to {string} - a receiver's wallet address
  * @param data.qty {number} - a quantity of the tips, for example 1 = 1 USD, 2 = 2 USDs
  */
 export type SendTipsInput = {
   key: string
   data: {
+    senderId: string
+    receiverId: string
+    publishId: string
     to: string
     qty: number
   }

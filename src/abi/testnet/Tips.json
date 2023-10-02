@@ -63,6 +63,9 @@
       "anonymous": false,
       "name": "TipsTransferred",
       "inputs": [
+        { "type": "string", "name": "senderId", "indexed": false },
+        { "type": "string", "name": "receiverId", "indexed": false },
+        { "type": "string", "name": "publishId", "indexed": false },
         { "type": "address", "name": "from", "indexed": false },
         { "type": "address", "name": "to", "indexed": false },
         { "type": "uint256", "name": "amount", "indexed": false },
@@ -247,8 +250,17 @@
       "stateMutability": "payable",
       "payable": true,
       "inputs": [
-        { "type": "address", "name": "to" },
-        { "type": "uint256", "name": "qty" }
+        {
+          "type": "tuple",
+          "name": "vars",
+          "components": [
+            { "type": "string", "name": "senderId" },
+            { "type": "string", "name": "receiverId" },
+            { "type": "string", "name": "publishId" },
+            { "type": "address", "name": "to" },
+            { "type": "uint256", "name": "qty" }
+          ]
+        }
       ],
       "outputs": []
     },

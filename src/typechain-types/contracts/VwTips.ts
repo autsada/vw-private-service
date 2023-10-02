@@ -23,6 +23,30 @@ import type {
   TypedContractMethod,
 } from "../common";
 
+export declare namespace DataTypes {
+  export type TipInputStructStruct = {
+    senderId: string;
+    receiverId: string;
+    publishId: string;
+    to: AddressLike;
+    qty: BigNumberish;
+  };
+
+  export type TipInputStructStructOutput = [
+    senderId: string,
+    receiverId: string,
+    publishId: string,
+    to: string,
+    qty: bigint
+  ] & {
+    senderId: string;
+    receiverId: string;
+    publishId: string;
+    to: string;
+    qty: bigint;
+  };
+}
+
 export interface VwTipsInterface extends Interface {
   getFunction(
     nameOrSignature:
@@ -124,7 +148,7 @@ export interface VwTipsInterface extends Interface {
   ): string;
   encodeFunctionData(
     functionFragment: "tip",
-    values: [AddressLike, BigNumberish]
+    values: [DataTypes.TipInputStructStruct]
   ): string;
   encodeFunctionData(
     functionFragment: "upgradeTo",
@@ -282,6 +306,9 @@ export namespace RoleRevokedEvent {
 
 export namespace TipsTransferredEvent {
   export type InputTuple = [
+    senderId: string,
+    receiverId: string,
+    publishId: string,
     from: AddressLike,
     to: AddressLike,
     amount: BigNumberish,
@@ -289,6 +316,9 @@ export namespace TipsTransferredEvent {
     timestamp: BigNumberish
   ];
   export type OutputTuple = [
+    senderId: string,
+    receiverId: string,
+    publishId: string,
     from: string,
     to: string,
     amount: bigint,
@@ -296,6 +326,9 @@ export namespace TipsTransferredEvent {
     timestamp: bigint
   ];
   export interface OutputObject {
+    senderId: string;
+    receiverId: string;
+    publishId: string;
     from: string;
     to: string;
     amount: bigint;
@@ -438,7 +471,7 @@ export interface VwTips extends BaseContract {
   >;
 
   tip: TypedContractMethod<
-    [to: AddressLike, qty: BigNumberish],
+    [vars: DataTypes.TipInputStructStruct],
     [void],
     "payable"
   >;
@@ -528,7 +561,7 @@ export interface VwTips extends BaseContract {
   getFunction(
     nameOrSignature: "tip"
   ): TypedContractMethod<
-    [to: AddressLike, qty: BigNumberish],
+    [vars: DataTypes.TipInputStructStruct],
     [void],
     "payable"
   >;
@@ -681,7 +714,7 @@ export interface VwTips extends BaseContract {
       RoleRevokedEvent.OutputObject
     >;
 
-    "TipsTransferred(address,address,uint256,uint256,uint256)": TypedContractEvent<
+    "TipsTransferred(string,string,string,address,address,uint256,uint256,uint256)": TypedContractEvent<
       TipsTransferredEvent.InputTuple,
       TipsTransferredEvent.OutputTuple,
       TipsTransferredEvent.OutputObject

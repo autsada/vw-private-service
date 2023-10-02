@@ -21,6 +21,30 @@ import type {
   TypedContractMethod,
 } from "../common";
 
+export declare namespace DataTypes {
+  export type TipInputStructStruct = {
+    senderId: string;
+    receiverId: string;
+    publishId: string;
+    to: AddressLike;
+    qty: BigNumberish;
+  };
+
+  export type TipInputStructStructOutput = [
+    senderId: string,
+    receiverId: string,
+    publishId: string,
+    to: string,
+    qty: bigint
+  ] & {
+    senderId: string;
+    receiverId: string;
+    publishId: string;
+    to: string;
+    qty: bigint;
+  };
+}
+
 export interface IVwTipsInterface extends Interface {
   getFunction(
     nameOrSignature:
@@ -50,7 +74,7 @@ export interface IVwTipsInterface extends Interface {
   ): string;
   encodeFunctionData(
     functionFragment: "tip",
-    values: [AddressLike, BigNumberish]
+    values: [DataTypes.TipInputStructStruct]
   ): string;
   encodeFunctionData(functionFragment: "withdraw", values?: undefined): string;
 
@@ -120,7 +144,7 @@ export interface IVwTips extends BaseContract {
   getPriceFeedAddress: TypedContractMethod<[], [string], "view">;
 
   tip: TypedContractMethod<
-    [to: AddressLike, qty: BigNumberish],
+    [vars: DataTypes.TipInputStructStruct],
     [void],
     "payable"
   >;
@@ -146,7 +170,7 @@ export interface IVwTips extends BaseContract {
   getFunction(
     nameOrSignature: "tip"
   ): TypedContractMethod<
-    [to: AddressLike, qty: BigNumberish],
+    [vars: DataTypes.TipInputStructStruct],
     [void],
     "payable"
   >;

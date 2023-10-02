@@ -8,6 +8,7 @@ import http from "http"
 import "./firebase/config"
 import * as router from "./routes"
 import { errorHandler } from "./middlewares/error"
+import { eventListener } from "./lib/listener"
 
 const { PORT } = process.env
 const port = Number(PORT || 8000)
@@ -28,3 +29,5 @@ const httpServer = http.createServer(app)
 httpServer.listen({ port }, () => {
   console.log(`Server ready at port: ${port}`)
 })
+
+eventListener()
