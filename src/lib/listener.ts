@@ -2,6 +2,7 @@ import { ethers } from "ethers"
 
 import { publishMessage } from "../pubsub"
 import TipContract from "../abi/testnet/Tips.json"
+import { encryptString } from "./utils"
 import type { VwTips } from "../typechain-types"
 
 const { SEND_TIPS_TOPIC, ALCHEMY_API_KEY } = process.env
@@ -40,7 +41,9 @@ export function eventListener() {
           fee: ethers.formatEther(fee),
         }
 
-        await publishMessage(SEND_TIPS_TOPIC!, JSON.stringify(data))
+        const encryptedData = encryptString(JSON.stringify(data))
+
+        await publishMessage(SEND_TIPS_TOPIC!, encryptedData)
       }
     )
   } catch (error) {
