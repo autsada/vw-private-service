@@ -2,9 +2,12 @@ import CryptoJs from "crypto-js"
 
 const { ENCRYPT_KEY } = process.env
 
-export function encryptString(text: string): string {
+export function encryptString(text: string, key?: string): string {
   console.time("string-encrypt")
-  const encrypted = CryptoJs.AES.encrypt(text, ENCRYPT_KEY!).toString()
+  const encrypted = CryptoJs.AES.encrypt(
+    text,
+    !key ? ENCRYPT_KEY! : key
+  ).toString()
 
   console.timeEnd("string-encrypt")
   return encrypted

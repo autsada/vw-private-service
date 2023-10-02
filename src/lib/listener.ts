@@ -5,7 +5,7 @@ import TipContract from "../abi/testnet/Tips.json"
 import { encryptString } from "./utils"
 import type { VwTips } from "../typechain-types"
 
-const { SEND_TIPS_TOPIC, ALCHEMY_API_KEY } = process.env
+const { SEND_TIPS_TOPIC, ALCHEMY_API_KEY, PUBSUB_ENCRYPT_KEY } = process.env
 
 export function eventListener() {
   try {
@@ -41,13 +41,15 @@ export function eventListener() {
           fee: ethers.formatEther(fee),
         }
 
-        const encryptedData = encryptString(JSON.stringify(data))
+        const encryptedData = encryptString(
+          JSON.stringify(data),
+          PUBSUB_ENCRYPT_KEY
+        )
 
         await publishMessage(SEND_TIPS_TOPIC!, encryptedData)
       }
     )
   } catch (error) {
-    console.log("error -->", error)
     console.error(error)
   }
 }
