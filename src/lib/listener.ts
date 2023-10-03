@@ -41,10 +41,15 @@ export function eventListener() {
           fee: ethers.formatEther(fee),
         }
 
+        console.log("data -->", data)
+
+        console.log("key -->", PUBSUB_ENCRYPT_KEY)
         const encryptedData = encryptString(
           JSON.stringify(data),
           PUBSUB_ENCRYPT_KEY
         )
+
+        console.log("encrypted -->", encryptedData)
 
         await publishMessage(SEND_TIPS_TOPIC!, encryptedData)
       }
