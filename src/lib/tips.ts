@@ -74,24 +74,15 @@ export async function calculateTips(qty: number) {
 export async function sendTips(input: SendTipsInput) {
   const {
     key,
-    data: { senderId, receiverId, publishId, to, qty },
+    data: { tipId, to, qty },
   } = input
   const contract = contractWrite(key)
 
   // Calculate tips amount for the given quantity
   const tips = await calculateTips(qty)
-  const txn = await contract.tip(
-    {
-      senderId,
-      receiverId,
-      publishId,
-      to: to.toLowerCase(),
-      qty,
-    },
-    {
-      value: tips,
-    }
-  )
+  const txn = await contract.tip(tipId, to, qty, {
+    value: tips,
+  })
   const txnRct = await txn.wait()
   const event = txnRct?.logs[0] as ethers.EventLog
 
@@ -100,10 +91,11 @@ export async function sendTips(input: SendTipsInput) {
   const args = event.args
   if (!args) return null
 
-  const [_, __, ___, from, receiver, amount, fee] =
+  const [id, from, receiver, amount, fee] =
     args as unknown as TipsTransferredEvent.OutputTuple
 
   return {
+    id,
     from,
     to: receiver,
     amount: ethers.formatEther(amount),

@@ -42,8 +42,7 @@ export async function transferTips(
     // Validate auth.
     if (!uid) throw new Error(authError)
 
-    const { senderId, receiverId, publishId, to, qty } =
-      req.body as SendTipsInput["data"]
+    const { tipId, to, qty } = req.body as SendTipsInput["data"]
     // Validate input.
     if (!to || !qty || typeof Number(qty) !== "number")
       throw new Error("Invalid input")
@@ -57,9 +56,7 @@ export async function transferTips(
     const result = await sendTips({
       key,
       data: {
-        senderId,
-        receiverId,
-        publishId,
+        tipId,
         to,
         qty: Number(qty),
       },

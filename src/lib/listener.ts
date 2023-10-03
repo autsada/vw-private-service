@@ -22,19 +22,9 @@ export function eventListener() {
 
     contract.on(
       contract.getEvent("TipsTransferred"),
-      async (
-        senderId,
-        receiverId,
-        publishId,
-        from,
-        receiverAddress,
-        amount,
-        fee
-      ) => {
+      async (tipId, from, receiverAddress, amount, fee) => {
         const data = {
-          senderId,
-          receiverId,
-          publishId,
+          tipId,
           from,
           to: receiverAddress,
           amount: ethers.formatEther(amount),

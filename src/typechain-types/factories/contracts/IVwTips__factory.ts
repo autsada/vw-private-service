@@ -67,36 +67,19 @@ const _abi = [
   {
     inputs: [
       {
-        components: [
-          {
-            internalType: "string",
-            name: "senderId",
-            type: "string",
-          },
-          {
-            internalType: "string",
-            name: "receiverId",
-            type: "string",
-          },
-          {
-            internalType: "string",
-            name: "publishId",
-            type: "string",
-          },
-          {
-            internalType: "address",
-            name: "to",
-            type: "address",
-          },
-          {
-            internalType: "uint256",
-            name: "qty",
-            type: "uint256",
-          },
-        ],
-        internalType: "struct DataTypes.TipInputStruct",
-        name: "vars",
-        type: "tuple",
+        internalType: "string",
+        name: "tipId",
+        type: "string",
+      },
+      {
+        internalType: "address",
+        name: "to",
+        type: "address",
+      },
+      {
+        internalType: "uint256",
+        name: "qty",
+        type: "uint256",
       },
     ],
     name: "tip",
